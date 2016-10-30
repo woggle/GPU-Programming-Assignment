@@ -18,11 +18,15 @@ ifeq ($(emu),1)
 	NVCC_FLAGS += -deviceemu
 endif
 
+all: vector_max breadth_first_search
 
 vector_max: vector_max.cu
 	$(NVCC) $(NVCC_FLAGS) vector_max.cu -o vector_max -lcuda
 
+breadth_first_search: breadth_first_search.cu
+	$(NVCC) $(NVCC_FLAGS) breadth_first_search.cu -o breadth_first_search -lcuda
 
 clean:
-	rm -f *.o *~ vector_add vector_max
+	rm -f *.o *~ vector_add vector_max breadth_first_search
 
+.PHONY: clean all
