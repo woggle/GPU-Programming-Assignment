@@ -114,8 +114,8 @@ int main(int argc, char **argv) {
     stop_timer(vector_start_time, "Vector generation");
 	
     // Compute the max on the GPU
-    float GPU_kernel_time = 0.0f;
-    float transfer_time = 0.0f;
+    float GPU_kernel_time = INFINITY;
+    float transfer_time = INFINITY;
     long long GPU_start_time = start_timer();
     GPU_forward_subst(A, X_GPU, B, N, M, kernel_code, &GPU_kernel_time, &transfer_time);
     long long GPU_time = stop_timer(GPU_start_time, "\t            Total");
@@ -173,6 +173,7 @@ int main(int argc, char **argv) {
 }
 
 void GPU_forward_subst(float *A, float *X, float *B, int N, int M, int kernel_code, float *kernel_runtime, float *transfer_runtime) {
+    // IMPLEMENT YOUR BFS AND TIMING CODE HERE
 }
 
 

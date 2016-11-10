@@ -93,7 +93,7 @@ then the after CPU_bfs(theGraph, 0, output_bfs_tree), the values in output_bfs_t
 */
 void CPU_bfs(Graph* graph, int starting_node, int *output_bfs_tree);
 
-void GPU_bfs(Graph* graph, int starting_node, int *output_bfs_tree, int kernel_code);
+void GPU_bfs(Graph* graph, int starting_node, int *output_bfs_tree, int kernel_code, float *kernel_time, float *transfer_time);
 
 /*
 Verify the result of a BFS is correct
@@ -173,7 +173,7 @@ int main(int argc, char **argv) {
     int *gpu_output_bfs_tree = (int*) malloc(graph.num_nodes * sizeof(int));
     long long start_cpu = start_timer();
     CPU_bfs(&graph, starting_node, cpu_output_bfs_tree);
-    stop_timer(start_cpu, "CPU version");
+    long long CPU_time = stop_timer(start_cpu, "CPU version");
 
     if (!verify_bfs(&graph, starting_node, cpu_output_bfs_tree)) {
         fprintf(stderr, "CPU BFS produces INCORRECT RESULT!\n");
@@ -186,9 +186,20 @@ int main(int argc, char **argv) {
         cpu_output_bfs_tree[4], cpu_output_bfs_tree[5]);
 #endif
 
+    float GPU_kernel_time = INFINITY;
+    float transfer_time = INFINITY;
     long long start_gpu = start_timer();
-    GPU_bfs(&graph, starting_node, gpu_output_bfs_tree, kernel_code);
-    stop_timer(start_gpu, "GPU version");
+    GPU_bfs(&graph, starting_node, gpu_output_bfs_tree, kernel_code, &GPU_kernel_time, &transfer_time);
+    long long GPU_time = stop_timer(start_gpu, "GPU version");
+
+    // Compute the speedup or slowdown
+    //// Not including data transfer
+    if (GPU_kernel_time > usToSec(CPU_time)) printf("\nCPU outperformed GPU kernel by %.2fx\n", (float) (GPU_kernel_time) / usToSec(CPU_time));
+    else                     printf("\nGPU kernel outperformed CPU by %.2fx\n", (float) usToSec(CPU_time) / (float) GPU_kernel_time);
+
+    //// Including data transfer
+    if (GPU_time > CPU_time) printf("\nCPU outperformed GPU total runtime (including data transfer) by %.2fx\n", (float) GPU_time / (float) CPU_time);
+    else                     printf("\nGPU total runtime (including data transfer) outperformed CPU by %.2fx\n", (float) CPU_time / (float) GPU_time);
     
     if (!verify_bfs(&graph, starting_node, gpu_output_bfs_tree)) {
         fprintf(stderr, "GPU BFS produces INCORRECT RESULT!\n");
@@ -200,7 +211,7 @@ int main(int argc, char **argv) {
     cudaFree(graph.edge_destinations);
 }
 
-void GPU_bfs(Graph* graph, int starting_node, int *output_bfs_tree, int kernel_code) {
+void GPU_bfs(Graph* graph, int starting_node, int *output_bfs_tree, int kernel_code, float *kernel_runtime, float *transfer_runtime) {
     for (int i = 0; i < graph->num_nodes; ++i) {
         output_bfs_tree[i] = -1;
     }
