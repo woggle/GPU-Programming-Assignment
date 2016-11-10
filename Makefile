@@ -18,7 +18,9 @@ ifeq ($(emu),1)
 	NVCC_FLAGS += -deviceemu
 endif
 
-all: vector_max breadth_first_search forward_subst
+BINARIES = vector_max breadth_first_search forward_subst 2d_convolve
+
+all: $(BINARIES)
 
 vector_max: vector_max.cu
 	$(NVCC) $(NVCC_FLAGS) vector_max.cu -o vector_max -lcuda
@@ -29,7 +31,11 @@ breadth_first_search: breadth_first_search.cu
 forward_subst: forward_subst.cu
 	$(NVCC) $(NVCC_FLAGS) forward_subst.cu -o forward_subst -lcuda
 
+2d_convolve: 2d_convolve.cu
+	$(NVCC) $(NVCC_FLAGS) 2d_convolve.cu -o 2d_convolve -lcuda
+
+
 clean:
-	rm -f *.o *~ vector_add vector_max breadth_first_search
+	rm -f *.o *~ $(BINARIES)
 
 .PHONY: clean all
