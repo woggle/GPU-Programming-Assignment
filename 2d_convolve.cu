@@ -13,14 +13,12 @@ const int threads_per_block = 256;
 
 // Forward function declarations
 /*
-Perform a 2D convolution on an NxN matrix A_in laid out in memory
+Task: Perform a 2D convolution on an NxN matrix A_in laid out in memory
 with contiguous rows and a KxK filter F. K must be odd. Put
 the result in A_out.
 
-See also CPU_convolve() which implements this below.
-
-See also https://en.wikipedia.org/wiki/Kernel_(image_processing) 
-and https://docs.gimp.org/en/plug-in-convmatrix.html
+With this layout, A row i column j is A[i * N + j]; and
+F row i column j is F[i * N + j].
 
 When elements outside A are required apply this by "extending"
 the edge (see also description in the Wikipedia article), substituting
@@ -50,7 +48,10 @@ For example, if K = 3, then this means that
      F[2 * K + 1] * A_in[MIN(i + 1, N-1) * N + j] + 
      F[2 * K + 2] * A_in[MIN(i + 1, N-1) * N + MIN(j + 1, N-1)];
 
-
+See also:
+    - CPU_convolve() which implements this below.
+    - https://en.wikipedia.org/wiki/Kernel_(image_processing) 
+    - https://docs.gimp.org/en/plug-in-convmatrix.html
 
  */
 void GPU_convolve(float *A_in, float *A_out, int N, float *F, int K, int kernel_code, float *kernel_time, float *transfer_time);
