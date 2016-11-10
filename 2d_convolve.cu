@@ -119,7 +119,7 @@ int main(int argc, char **argv) {
     float *A_in = get_random_vector(N * N);
     float *F = get_random_vector(K * K);
     for (int i = 0; i < K * K; ++i) {
-        F /= K * K;
+        F[i] /= K * K;
     }
 #endif
     stop_timer(vector_start_time, "Vector generation");
