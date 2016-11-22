@@ -5,6 +5,11 @@ It also has the Makefile setup to be able build the supplied serial codes.
 For all of these serial codes, you can copy the supplied .cu file and make
 corresponding your changes to your Makefile to use one of the supplied serial codes in your project.
 
+## Changelog
+
+2016-11-18: edit `forward_subst.cu` to accept no arguments when the fixed example is enabled;
+clarify how the fixed example is enabled for `2d_convolve`.
+
 # Breadth-First Search
 
 [Wikipedia article](https://en.wikipedia.org/wiki/Breadth-first_search).
@@ -65,7 +70,10 @@ cancellation](https://en.wikipedia.org/wiki/Loss_of_significance).
 
 For debugging, rather than generate a random example, you can uncomment the `#define USE_EXAMPLE`
 and edit the example around line 72. You can also uncomment the `#define PRINT_ANSWERS` to print
-out what the CPU and GPU code compute.
+out what the CPU and GPU code compute. When using a fixed example, the `forward_subst` binary
+can be invoked like:
+
+    ./forward_subst -k KERNEL_CODE
 
 # 2D convolution
 
@@ -86,3 +94,11 @@ number of rows and number of columns in the filter matrix. `K` must be odd.
 Comments near the beginning of `2d_convolve.cu` describe the convolution task and the format
 of A and the filter F in memory. You can also just look at the implementation of 
 `CPU_convolve` for reference.
+
+For debugging, rather than generate a random example, you can uncomment the `#define USE_EXAMPLE`
+and edit the example around line 104. You can also uncomment the `#define PRINT_ANSWERS` to print
+out what the CPU and GPU code compute. When using a fixed example, the `2d_convolve` binary
+can be invoked like:
+
+    ./2d_convolve -k KERNEL_CODE
+

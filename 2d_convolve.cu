@@ -75,8 +75,8 @@ int main(int argc, char **argv) {
     int N, K;
 #ifdef USE_EXAMPLE
     if(argc == 1) {
-    } else if (argc == 2 && !strcmp(argv[2], "-k")) {
-        kernel_code = atoi(argv[3]); 
+    } else if (argc == 3 && !strcmp(argv[1], "-k")) {
+        kernel_code = atoi(argv[2]); 
         printf("KERNEL_CODE %d\n", kernel_code);
     } else {
         die("USAGE: ./2d_convolve -k <kernel_code> # uses hardcoded example");
@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
     if(argc == 3) {
         N = atoi(argv[1]); // user-specified value
         K = atoi(argv[2]); // user-specified value
-    } else if (argc == 4 && !strcmp(argv[2], "-k")) {
+    } else if (argc == 4 && !strcmp(argv[3], "-k")) {
         N = atoi(argv[1]); // user-specified value
         K = atoi(argv[2]); // user-specified value
         kernel_code = atoi(argv[3]); 
