@@ -60,7 +60,7 @@ int main(int argc, char **argv) {
     if (argc == 3) {
         N = atoi(argv[1]); // user-specified value
         M = atoi(argv[2]); // user-specified value
-    } else if (argc == 5 && !strcmp(argv[2], "-k")) {
+    } else if (argc == 4 && !strcmp(argv[2], "-k")) {
         N = atoi(argv[1]); // user-specified value
         M = atoi(argv[2]); // user-specified value
         kernel_code = atoi(argv[3]); 
