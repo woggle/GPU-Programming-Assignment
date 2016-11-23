@@ -301,7 +301,7 @@ void load_graph(FILE *in, Graph* graph) {
         ++num_edges;
     }
     graph->num_nodes = max_node + 1;
-    cudaMallocHost((void**) &graph->edge_offsets, sizeof(int) * (max_node + 1));
+    cudaMallocHost((void**) &graph->edge_offsets, sizeof(int) * (max_node + 2));
     cudaMallocHost((void**) &graph->edge_destinations, sizeof(int) * (num_edges));
     rewind(in);
     int last_first = 0, last_second = -1;
@@ -320,6 +320,7 @@ void load_graph(FILE *in, Graph* graph) {
             graph->edge_offsets[first + 1]++
         ]  = second;
     }
+    graph->edge_offsets[max_node+1] = graph->edge_offsets[max_node]; 
 }
 
 bool verify_bfs(Graph* graph, int starting_node, int *output_bfs_tree) {
