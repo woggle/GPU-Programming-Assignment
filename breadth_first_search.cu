@@ -13,7 +13,7 @@ Nodes are numbered starting with 0, to num_nodes - 1.
 
 The edges for node i are stored starting at
     edge_destinations[edge_offsets[i]]
-and continuing until and including
+and continuing until and *excluding*
     edge_destinations[edge_offsets[i+1]]
 
 Edges for a node will be in sorted order.
@@ -33,8 +33,7 @@ would be represented as
         0, (index 0)
         2, (index 1)
         3, (index 2)
-        3, (index 2)
-        4, (index 3)
+        3, (index 3)
         4, (index 4)
         4, (index 5)
     }
