@@ -9,6 +9,8 @@ corresponding your changes to your Makefile to use one of the supplied serial co
 
 2016-11-18: edit `forward_subst.cu` to accept no arguments when the fixed example is enabled;
 clarify how the fixed example is enabled for `2d_convolve`.
+2016-11-23: fixed some minor errors in the comments at the top of `breadth_first_search.cu`; add
+note about how starting node is chosen for the BFS when some nodes have 0 out-edges.
 
 # Breadth-First Search
 
@@ -31,7 +33,8 @@ The `breadth_first_search` binary which can be invoked like:
     ./breadth_first_search GRAPH -s START -k KERNEL_CODE
 
 `GRAPH` is the name of a graph input file the `bfs-tools/trivial-graph.txt` we supply.
-`START` is the number of the node to start the BFS at, by default 0.
+`START` is the number of the node to start the BFS at, by default 0, unless this
+has no out-edges, in which case the default is the first node with at least one out-edge..
 `KERNEL_CODE` is a parameter passed to the GPU routine intended to allow you to easily
 experiment with multiple versions of your GPU code like in Part 1 of the homework.
 
