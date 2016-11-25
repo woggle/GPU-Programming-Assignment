@@ -7,12 +7,12 @@ corresponding your changes to your Makefile to use one of the supplied serial co
 
 ## Changelog
 
-2016-11-18: edit `forward_subst.cu` to accept no arguments when the fixed example is enabled;
+* 2016-11-18: edit `forward_subst.cu` to accept no arguments when the fixed example is enabled;
 clarify how the fixed example is enabled for `2d_convolve`.
-2016-11-23: fixed some minor errors in the comments at the top of `breadth_first_search.cu`; add
+* 2016-11-23: fixed some minor errors in the comments at the top of `breadth_first_search.cu`; add
 note about how starting node is chosen for the BFS when some nodes have 0 out-edges.
-2016-11-23: make sure `breadth_first_search.cu`'s load_group function sets the last edge_offset.
-2016-11-24: note that 2D convolution differs slightly from the article linked in the Google doc.
+* 2016-11-23: make sure `breadth_first_search.cu`'s load_group function sets the last edge_offset.
+* 2016-11-24: note that 2D convolution differs slightly from the article linked in the Google doc.
 
 # Breadth-First Search
 
