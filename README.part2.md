@@ -12,6 +12,7 @@ clarify how the fixed example is enabled for `2d_convolve`.
 2016-11-23: fixed some minor errors in the comments at the top of `breadth_first_search.cu`; add
 note about how starting node is chosen for the BFS when some nodes have 0 out-edges.
 2016-11-23: make sure `breadth_first_search.cu`'s load_group function sets the last edge_offset.
+2016-11-24: note that 2D convolution differs slightly from the article linked in the Google doc.
 
 # Breadth-First Search
 
@@ -83,7 +84,7 @@ can be invoked like:
 
 [Wikipedia article](https://en.wikipedia.org/wiki/Kernel_%40image_processing%41).
 
-We use the 'extend' choice from the wikipedia article to handle edges.
+We use the 'extend' choice from the wikipedia article to handle edges. (This differs from the article linked off the Google doc. The provided implementation also does not flip the kernel like mentioned in that article.)
 
 Files:
 * `2d_convolve`: serial 2D convolution implementation and checking code
